@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAE Road Sign & Object Detector | Dubai Smart City</title>
+    <meta name="description" content="AI-powered road sign and object detection for UAE smart city infrastructure. Real-time browser-based detection using TensorFlow.js.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- TensorFlow.js and COCO-SSD -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
+</head>
+<body class="dark-theme">
+    <div class="surveillance-grid"></div>
+
+    <div id="loading-overlay" class="overlay">
+        <div class="loader-container">
+            <div class="spinner"></div>
+            <p>CONNECTING TO DUBAI SMART NETWORK...</p>
+        </div>
+    </div>
+
+    <div class="top-utility-bar">
+        <div class="system-info">
+            <span class="status-dot blink"></span>
+            <span class="system-title">SMART ROADS AI SYSTEM — DUBAI</span>
+        </div>
+        <div id="live-clock" class="clock">00:00:00</div>
+    </div>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <div class="logo-text">
+                    <h1>RTA SURVEILLANCE</h1>
+                    <p>AI OBJECT RECOGNITION UNIT</p>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="mode-toggle" class="btn-primary">
+                    <span class="icon">🔄</span> SWITCH MODE
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <section class="detection-area">
+            <div class="viewport-container">
+                <!-- Webcam View -->
+                <div id="webcam-view" class="view-active">
+                    <video id="webcam" autoplay playsinline muted></video>
+                    <canvas id="detection-canvas"></canvas>
+                    <div class="status-badge" id="camera-status">LIVE CAMERA</div>
+                </div>
+
+                <!-- Upload View -->
+                <div id="upload-view" class="view-hidden">
+                    <div id="drop-zone" class="drop-zone">
+                        <div class="drop-content">
+                            <span class="drop-icon">📁</span>
+                            <p>Drag & Drop Image or Click to Upload</p>
+                            <span class="support-text">Supports JPG, PNG</span>
+                            <input type="file" id="file-input" accept="image/*" hidden>
+                        </div>
+                    </div>
+                    <div id="image-display-container" class="view-hidden">
+                        <img id="uploaded-image" src="" alt="Uploaded source">
+                        <canvas id="upload-canvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Risk Warning Badge -->
+                <div id="risk-warning" class="risk-badge hidden">
+                    <span class="warning-icon">⚠️</span>
+                    <span id="warning-text">HIGH RISK DETECTED</span>
+                </div>
+            </div>
+
+            <!-- Detection Log Section -->
+            <div class="detection-log-area">
+                <div class="log-header">
+                    <h3>SYSTEM LOG FEED</h3>
+                    <div class="log-actions">
+                        <button id="export-log" class="btn-outline">EXPORT REPORT</button>
+                        <button id="clear-log" class="btn-outline">CLEAR FEED</button>
+                    </div>
+                </div>
+                <div class="log-table-container">
+                    <table id="log-table">
+                        <thead>
+                            <tr>
+                                <th>TIMESTAMP</th>
+                                <th>OBJECT</th>
+                                <th>CONFIDENCE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="log-body">
+                            <!-- Log entries will appear here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Real-time Analytics</h2>
+                <div class="indicator">● System Active</div>
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="stats-panel">
+                <div class="stat-card">
+                    <span class="stat-label">SESSION TOTAL</span>
+                    <span id="total-objects" class="stat-value">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">MOST FREQUENT</span>
+                    <span id="most-frequent" class="stat-value">NONE</span>
+                </div>
+                <div class="stat-card risk-card" id="risk-container">
+                    <span class="stat-label">RISK LEVEL</span>
+                    <span id="risk-level" class="stat-value">LOW</span>
+                </div>
+            </div>
+
+            <div class="detection-list-container">
+                <ul id="detection-list">
+                    <li class="empty-msg">No objects detected...</li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <div class="stats-item">
+                    <span>Model:</span>
+                    <span>COCO-SSD v2</span>
+                </div>
+                <div class="stats-item">
+                    <span>Engine:</span>
+                    <span>TensorFlow.js</span>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <section class="project-info-section">
+        <div class="info-content">
+            <div class="info-header">
+                <h2>Project Overview // Dubai Smart Roads AI</h2>
+                <div class="line-divider"></div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Core Technology</h3>
+                    <p>This system leverages <strong>TensorFlow.js</strong> and the <strong>COCO-SSD</strong> model to perform real-time object detection directly in the browser. By utilizing client-side GPU acceleration, the application eliminates the need for expensive server-side processing, ensuring low latency and data privacy.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Dubai Strategic Vision</h3>
+                    <p>Aligned with the <strong>Dubai Smart City Strategy 2030</strong> and the <strong>Dubai Autonomous Transportation Strategy</strong>, this project demonstrates how AI-driven computer vision can enhance urban safety. It serves as a prototype for integrated monitoring systems used by the RTA to optimize traffic flow and pedestrian safety.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Real-World Applications</h3>
+                    <ul class="app-list">
+                        <li>Automated Traffic Incident Detection</li>
+                        <li>Pedestrian Safety Monitoring in High-Traffic Zones</li>
+                        <li>Autonomous Vehicle Obstacle Recognition</li>
+                        <li>Smart Parking Infrastructure Management</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-footer">
+                <p>© 2026 Dubai Smart City Infrastructure | AI Division Prototype</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
