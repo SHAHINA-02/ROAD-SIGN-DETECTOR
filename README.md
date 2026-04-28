@@ -11,12 +11,12 @@ A web application that classifies road signs from uploaded images and delivers i
 
 **LIVE DEMO:** https://road-sign-detector.vercel.app
 
-> Add a screenshot here — drag and drop an image into this file on GitHub.
+SCREENSHOT-
 https://github.com/SHAHINA-02/ROAD-SIGN-DETECTOR/blob/bbb3d7bea91b37bafdec7f5a14e59e62e00b5099/ROAD%20SIGN%20SC/Screenshot%202026-04-29%20020718.png
 
 ---
 
-## About
+## ABOUT
 
 Road signs are critical to driver safety, yet many drivers — especially new arrivals, tourists, and learners — encounter unfamiliar signs with no immediate reference. This tool allows anyone to upload a road sign image and instantly understand what it means, no manual lookup required.
 
