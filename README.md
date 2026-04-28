@@ -1,3 +1,4 @@
+
 #ROAD SIGN DETECTOR#
 
 ![Status](https://img.shields.io/badge/Status-Production-brightgreen?style=flat-square)
@@ -11,7 +12,7 @@ A web application that classifies road signs from uploaded images and delivers i
 **LIVE DEMO:** https://road-sign-detector.vercel.app
 
 > Add a screenshot here — drag and drop an image into this file on GitHub.
-> https://raw.githubusercontent.com/SHAHINA-02/ROAD-SIGN-DETECTOR/36b6ccb767ec6b5718f7522f7d50f1b9a332d95d/ROAD%20SIGN%20SC/Screenshot%202026-04-29%20020718.png
+
 
 ---
 
