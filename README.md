@@ -11,8 +11,10 @@ A web application that classifies road signs from uploaded images and delivers i
 
 **LIVE DEMO:** https://road-sign-detector.vercel.app
 
-SCREENSHOT-
-https://github.com/SHAHINA-02/ROAD-SIGN-DETECTOR/blob/bbb3d7bea91b37bafdec7f5a14e59e62e00b5099/ROAD%20SIGN%20SC/Screenshot%202026-04-29%20020718.png
+SCREENSHOT
+<img width="1908" height="877" alt="Screenshot 2026-04-29 020718" src="https://github.com/user-attachments/assets/99f00a6b-26a1-446f-9ee9-a3818a1b7680" />
+
+
 
 ---
 
