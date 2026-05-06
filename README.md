@@ -83,9 +83,9 @@ Open `http://localhost:3000` in your browser.
 
 **SHAHINA.S** — Full Stack Developer & AI Engineer, UAE
 
-- Portfolio: https://yoursite.com
-- LinkedIn: https://linkedin.com/in/yourhandle
-- Email: you@email.com
+- Portfolio: https://shahina-portfolio.vercel.app/
+- LinkedIn: https://www.linkedin.com/in/shahina02
+- Email: shahinasofficial4140@gmail.com
 
 ---
 
